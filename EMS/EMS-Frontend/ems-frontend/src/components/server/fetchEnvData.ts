@@ -6,10 +6,17 @@ export async function fetchEnvData(): Promise<EnvData[]> {
   const q = query(collection(db, "envData"), orderBy("timestamp", "desc"));
   const querySnapshot = await getDocs(q);
 
-  const fetchedEnvData: EnvData[] = querySnapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...(doc.data() as Omit<EnvData, 'id'>),
-  }));
+  const fetchedEnvData: EnvData[] = querySnapshot.docs.map((doc) => {
+    const data = doc.data();
+    return {
+      id: doc.id,
+      temperature: data.temperature,
+      humidity: data.humidity,
+      pressure: data.pressure,
+      light_levels: data.light_levels,
+      timestamp: data.timestamp.toDate().toISOString(), // 💥 Convert to string
+    };
+  });
 
   return fetchedEnvData;
 }

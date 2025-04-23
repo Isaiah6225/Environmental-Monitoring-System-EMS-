@@ -27,7 +27,8 @@ export default function Table({ collectedData }: Props){
 			      <td>{item.humidity}</td>
 			      <td>{item.pressure}</td>
 			      <td>{item.light_levels}</td>
-			      <td>{item.timestamp}</td>
+			      <td>{new Date(item.timestamp).toLocaleString()}</td>
+
 			    </tr>
 			    ))}
 			  </tbody>
