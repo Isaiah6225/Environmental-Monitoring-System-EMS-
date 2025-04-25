@@ -13,8 +13,8 @@ export async function fetchEnvData(): Promise<EnvData[]> {
       temperature: data.temperature,
       humidity: data.humidity,
       pressure: data.pressure,
-      light_levels: data.light_levels,
-      timestamp: data.timestamp.toDate().toISOString(), // 💥 Convert to string
+      light_level: data.light_levels,
+      timestamp: data.timestamp.toDate().toISOString(), 
     };
   });
 

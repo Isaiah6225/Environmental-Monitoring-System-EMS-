@@ -1,6 +1,6 @@
 "use client";
 
-import { EnvData } from "../../types/index.ts"
+import { EnvData } from "../../types/index"
 
 type Props = {
 	collectedData: EnvData[];
@@ -26,7 +26,7 @@ export default function Table({ collectedData }: Props){
 			      <td>{item.temperature}</td>
 			      <td>{item.humidity}</td>
 			      <td>{item.pressure}</td>
-			      <td>{item.light_levels}</td>
+			      <td>{item.light_level}</td>
 			      <td>{new Date(item.timestamp).toLocaleString()}</td>
 
 			    </tr>
