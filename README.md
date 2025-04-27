@@ -8,11 +8,11 @@ The goal of the project is to provide a live dashboard for environmental monitor
 
 ### Arduino Mega 2560
 The Arduino Mega 2560 is used to interface with various environmental sensors:
-- **Temperature Sensor** (e.g., DHT22)
-- **Humidity Sensor** (e.g., DHT22)
-- **Light Sensor** (e.g., LDR)
-- **Pressure Sensor** (e.g., BMP180)
-- **Sound Sensor** (e.g., Microphone module)
+- **Temperature Sensor** (e.g., BME680)
+- **Humidity Sensor** (e.g., BME680)
+- **Light Sensor** (e.g., Light Resistor)
+- **Pressure Sensor** (e.g., BME680)
+- **Sound Sensor** (e.g., KY-038) (Coming soon)
 
 The sensors are connected to the Arduino's analog and digital pins. The Arduino continuously reads data from the sensors and sends it over a serial communication line to the Raspberry Pi 5.
 
@@ -49,27 +49,42 @@ This project uses two edge devices:
 
 ### Prerequisites
 Before setting up the project, make sure you have the following:
-- **Arduino IDE** for flashing the code onto the Arduino.
+- **Arduino IDE** to flash code onto the Arduino.
 - **Node.js** installed to run the frontend application.
 - **Firebase account** with a Firestore database set up.
 - **Python 3** installed on the Raspberry Pi for running the data processing container.
+- **Physical devices**:
+  - **Arduino Mega 2560** with sensors connected.
+  - **Raspberry Pi 5** connected to the Arduino for serial communication.
 
 ### Arduino Setup
-1. **Connect the sensors** to the Arduino Mega 2560.
+1. **Connect the sensors** to the Arduino Mega 2560. Make sure you have the physical sensors connected to the correct pins:
    - Temperature & Humidity Sensor (DHT22) to an analog pin.
    - Light Sensor (LDR) to an analog pin.
    - Pressure Sensor (BMP180) to I2C pins.
    - Sound Sensor to a digital pin.
-2. **Flash the code** onto the Arduino using the Arduino IDE.
+
+2. **Flash the code** onto the Arduino using the Arduino IDE. Ensure that the code continuously reads data from the sensors and sends it to the Raspberry Pi over the serial communication line.
 
 ### Raspberry Pi Setup
 1. **Install dependencies**:
-   - Ensure that Python 3 is installed on the Raspberry Pi.
-   - Install necessary Python packages like `pyserial` for serial communication and `firebase-admin` for interacting with Firebase.
+   - Ensure that **Python 3** is installed on the Raspberry Pi.
+   - Install the necessary Python packages like `pyserial` for serial communication and `firebase-admin` for interacting with Firebase.
 
 2. **Run the Python container**:
-   - The Python container listens for incoming serial data from the Arduino and sends it to Firebase Firestore.
-   - Set up a `.env` file with Firebase credentials and configure the Firebase Admin SDK.
+   - The Python container listens for incoming serial data from the Arduino and sends it to Firebase Firestore for storage.
+   - Set up a `.env` file on the Raspberry Pi with Firebase credentials and configure the Firebase Admin SDK to enable communication with Firestore.
+
+3. **Test with Physical Devices**:
+   - Ensure that the **Raspberry Pi** is connected to the **Arduino Mega 2560** via the serial communication line. Without the Arduino and Raspberry Pi physically connected, you will not be able to test the data flow.
+   - The Python container will not function as intended without the Arduino actively sending data over the serial connection.
+
+### Frontend Setup
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repository/EMS.git
+   cd EMS
+   cd EMS-Frontend
 
 ### Frontend Setup
 1. Clone the repository:
